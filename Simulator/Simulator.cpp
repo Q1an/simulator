@@ -9,7 +9,7 @@
 
 #include "GLDebugDrawer.h"
 #include "Simulator.h"
-float force = 0;
+Quad *theQuad;
 #ifndef M_PI
 #define M_PI       3.14159265358979323846
 #endif
@@ -26,11 +26,18 @@ float force = 0;
 #define ARM 0.2
 #define WIDTH 0.05
 #define THICK 0.02
-#define TORQUE_K 1.0
+#define TORQUE_K 0.5
+#define MAX_THROTTLE 3.0
+#define MIN_THROTTLE 0.0
+#define MAX_THROTTLE_STEP 0.5
 float error(float range = 1.0)
 {
 	float rdm = (random() % 1000) / 1000.0;
 	return range * (2 * rdm - 1);
+}
+float slice(float x, float lower, float upper)
+{
+	return fmin(fmax(x, lower), upper);
 }
 class Quad
 {
@@ -56,9 +63,18 @@ class Quad
 		
 		return body;
 	}
+	btVector3 rotor[4] = {
+		btVector3(0.0, 0.0, ARM),
+		btVector3(-ARM, 0.0, 0.0),
+		btVector3(0.0, 0.0, -ARM),
+		btVector3(ARM, 0.0, 0.0)
+	};
+	float hand[4] = {1.0, -1.0, 1.0, -1.0};
+	btVector4 actual;
 	
 public:
-	Quad (btDynamicsWorld* ownerWorld, const btVector3& positionOffset) : m_ownerWorld (ownerWorld)
+	Quad (btDynamicsWorld* ownerWorld, const btVector3& positionOffset)
+		: m_ownerWorld (ownerWorld), throttle(btVector4(0.0, 0.0, 0.0, 0.0)), actual(btVector4(0.0, 0.0, 0.0, 0.0))
 	{
 		// Setup the geometry
 		m_shapes[0] = new btBoxShape(btVector3(WIDTH, THICK, 2 * ARM));
@@ -104,26 +120,26 @@ public:
 		}
 		delete compound; compound = NULL;
 	}
-	void apply(btVector4 throttle)
+	void apply(void)
 	{
 		btTransform tran = btTransform(m_bodies[0]->getOrientation());
 		m_bodies[0]->activate();
-		m_bodies[0]->applyForce(tran*btVector3(0.0, throttle[0] + error(0.3), 0.0), tran*btVector3(0.0, 0.0, ARM));
-		m_bodies[0]->applyTorque(tran*btVector3(0.0, TORQUE_K * throttle[0], 0.0));
-		m_bodies[0]->applyForce(tran*btVector3(0.0, throttle[1] + error(0.3), 0.0), tran*btVector3(ARM, 0.0, 0.0));
-		m_bodies[0]->applyTorque(tran*btVector3(0.0, -TORQUE_K * throttle[1], 0.0));
-		m_bodies[0]->applyForce(tran*btVector3(0.0, throttle[2] + error(0.3), 0.0), tran*btVector3(0.0, 0.0, -ARM));
-		m_bodies[0]->applyTorque(tran*btVector3(0.0, TORQUE_K * throttle[2], 0.0));
-		m_bodies[0]->applyForce(tran*btVector3(0.0, throttle[3] + error(0.3), 0.0), tran*btVector3(-ARM, 0.0, 0.0));
-		m_bodies[0]->applyTorque(tran*btVector3(0.0, -TORQUE_K * throttle[3], 0.0));
+		for (int i = 0; i < 4; i++)
+		{
+			throttle[i] = slice(throttle[i], MIN_THROTTLE, MAX_THROTTLE);
+			actual[i] = slice(throttle[i], actual[i] - MAX_THROTTLE_STEP, actual[i] + MAX_THROTTLE_STEP);
+			m_bodies[0]->applyForce(tran*btVector3(0.0, actual[i] + error(0.1), 0.0), tran*rotor[i]);
+			m_bodies[0]->applyTorque(tran*btVector3(0.0, hand[i]*TORQUE_K * actual[i], 0.0));
+		}
 	}
+	btVector4 throttle;
 };
 
 
 void preTickCallback (btDynamicsWorld *world, btScalar timeStep)
 {
 	Simulator* env = (Simulator*)world->getWorldUserInfo();
-	env->m_quads[0]->apply(btVector4(force ,force,force,force));
+	env->m_quads[0]->apply();
 }
 
 void Simulator::initPhysics()
@@ -170,8 +186,9 @@ void Simulator::initPhysics()
 #endif //CREATE_GROUND_COLLISION_OBJECT
 	
 	}
-	btVector3 startOffset(0,0.5,0);
+	btVector3 startOffset(0,2.5,0);
 	addQuad(startOffset);
+	theQuad = m_quads[0];
 	clientResetScene();
 }
 
@@ -228,24 +245,48 @@ void Simulator::keyboardCallback(unsigned char key, int x, int y)
 	{
 		case 'p':
 		{
-			force += 0.5;
+			for (int i = 0; i < 4; i++)
+			theQuad->throttle[i] += 0.5;
 			break;
 		}
 		case 'n':
 		{
-			force = fmax(0.0, force - 0.5);
+			for (int i = 0; i < 4; i++)
+			theQuad->throttle[i] = fmax(0.0, theQuad->throttle[i] - 0.5);
 			break;
 		}
 		case 't':
 		{
 			// 油门
-			force = 2.0;
+			for (int i = 0; i < 4; i++)
+				theQuad->throttle[i] = 2.0;
 			break;
 		}
+		case 'y':
+		{
+			// 油门
+			for (int i = 0; i < 4; i++)
+				theQuad->throttle[i] = 1.25;
+			break;
+		}
+
 		case 'b':
 		{
 			// 断电
-			force = 0.0;
+			for (int i = 0; i < 4; i++)
+				theQuad->throttle[i] = 0.0;
+			break;
+		}
+		case 'u':
+		{
+			theQuad->throttle[1] += 0.3;
+			theQuad->throttle[3] -= 0.3;
+			break;
+		}
+		case 'i':
+		{
+			theQuad->throttle[1] -= 0.3;
+			theQuad->throttle[3] += 0.3;
 			break;
 		}
 		default:
