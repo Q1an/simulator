@@ -1,0 +1,24 @@
+readme
+使用bullet物理引擎建立的飞行器模拟器
+
+现状:
+	简易的四轴模型
+	用随机数的简单的误差模拟
+
+TODO:
+	电机升力的突变
+	飞行器主要参数的设定
+		ARM:臂长
+		MASS:质量
+		TORQUE_K产生的绕z轴力矩的比例系数
+	误差的合理化
+	和控制程序的接口
+
+说明:
+	q: exit
+	space: restart
+	t: full throttle
+	b: unarm
+	p: increase throttle
+	n: decrease throttle
+	
