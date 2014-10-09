@@ -9,6 +9,7 @@
 
 #include "GLDebugDrawer.h"
 #include "Simulator.h"
+#include "Quad.h"
 Quad *theQuad;
 #ifndef M_PI
 #define M_PI       3.14159265358979323846
@@ -22,118 +23,9 @@ Quad *theQuad;
 #define M_PI_4     0.785398163397448309616
 #endif
 
-#define MASS 0.5
-#define ARM 0.2
-#define WIDTH 0.05
-#define THICK 0.02
-#define TORQUE_K 0.5
-#define MAX_THROTTLE 3.0
-#define MIN_THROTTLE 0.0
-#define MAX_THROTTLE_STEP 0.5
-float error(float range = 1.0)
-{
-	float rdm = (random() % 1000) / 1000.0;
-	return range * (2 * rdm - 1);
-}
-float slice(float x, float lower, float upper)
-{
-	return fmin(fmax(x, lower), upper);
-}
-class Quad
-{
-	btDynamicsWorld* m_ownerWorld;
-	btCompoundShape* compound;
-	btCollisionShape* m_shapes[2];
-	btRigidBody* m_bodies[1];
-	
-	btRigidBody* localCreateRigidBody (btScalar mass, const btTransform& startTransform, btCollisionShape* shape)
-	{
-		bool isDynamic = (mass != 0.f);
-		
-		btVector3 localInertia(0,0,0);
-		if (isDynamic)
-			shape->calculateLocalInertia(mass,localInertia);
-		
-		btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
-		
-		btRigidBody::btRigidBodyConstructionInfo rbInfo(mass,myMotionState,shape,localInertia);
-		btRigidBody* body = new btRigidBody(rbInfo);
-		
-		m_ownerWorld->addRigidBody(body);
-		
-		return body;
-	}
-	btVector3 rotor[4] = {
-		btVector3(0.0, 0.0, ARM),
-		btVector3(-ARM, 0.0, 0.0),
-		btVector3(0.0, 0.0, -ARM),
-		btVector3(ARM, 0.0, 0.0)
-	};
-	float hand[4] = {1.0, -1.0, 1.0, -1.0};
-	btVector4 actual;
-	
-public:
-	Quad (btDynamicsWorld* ownerWorld, const btVector3& positionOffset)
-		: m_ownerWorld (ownerWorld), throttle(btVector4(0.0, 0.0, 0.0, 0.0)), actual(btVector4(0.0, 0.0, 0.0, 0.0))
-	{
-		// Setup the geometry
-		m_shapes[0] = new btBoxShape(btVector3(WIDTH, THICK, 2 * ARM));
-		m_shapes[1] = new btBoxShape(btVector3(WIDTH, THICK, 2 * ARM));
-		btCompoundShape* compound = new btCompoundShape();
-		btTransform localtran;
-		localtran.setIdentity();
-		compound->addChildShape(localtran, m_shapes[0]);
-		localtran.getBasis().setEulerZYX(0,M_PI_2,0);
-		compound->addChildShape(localtran, m_shapes[1]);
-		// Setup all the rigid bodies
-		btTransform offset;
-		offset.setIdentity();
-		offset.setOrigin(positionOffset);
-		
-		m_bodies[0] = localCreateRigidBody(btScalar(MASS), offset, compound);
-		
-		// Setup some damping on the m_bodies
-		for (int i = 0; i < 1; ++i)
-		{
-			m_bodies[i]->setDamping(0.05, 0.85);
-			m_bodies[i]->setDeactivationTime(0.8);
-			m_bodies[i]->setSleepingThresholds(0.1, 0.1);
-		}
-	}
-	
-	virtual	~Quad ()
-	{
-		int i;
-		
-		// Remove all bodies and shapes
-		for ( i = 0; i < 1; ++i)
-		{
-			m_ownerWorld->removeRigidBody(m_bodies[i]);
-			
-			delete m_bodies[i]->getMotionState();
-			
-			delete m_bodies[i]; m_bodies[i] = NULL;
-		}
-		for ( i = 0; i < 2; ++i)
-		{
-			delete m_shapes[i]; m_shapes[i] = NULL;
-		}
-		delete compound; compound = NULL;
-	}
-	void apply(void)
-	{
-		btTransform tran = btTransform(m_bodies[0]->getOrientation());
-		m_bodies[0]->activate();
-		for (int i = 0; i < 4; i++)
-		{
-			throttle[i] = slice(throttle[i], MIN_THROTTLE, MAX_THROTTLE);
-			actual[i] = slice(throttle[i], actual[i] - MAX_THROTTLE_STEP, actual[i] + MAX_THROTTLE_STEP);
-			m_bodies[0]->applyForce(tran*btVector3(0.0, actual[i] + error(0.1), 0.0), tran*rotor[i]);
-			m_bodies[0]->applyTorque(tran*btVector3(0.0, hand[i]*TORQUE_K * actual[i], 0.0));
-		}
-	}
-	btVector4 throttle;
-};
+
+
+
 
 
 void preTickCallback (btDynamicsWorld *world, btScalar timeStep)
@@ -219,6 +111,7 @@ void Simulator::clientMoveAndDisplay()
 	}
 	
 	renderme();
+	theQuad->drawForce();
 	
 	glFlush();
 	
@@ -230,7 +123,6 @@ void Simulator::displayCallback()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
 	renderme();
-	
 	//optional but useful: debug drawing
 	if (m_dynamicsWorld)
 		m_dynamicsWorld->debugDrawWorld();
@@ -246,13 +138,13 @@ void Simulator::keyboardCallback(unsigned char key, int x, int y)
 		case 'p':
 		{
 			for (int i = 0; i < 4; i++)
-			theQuad->throttle[i] += 0.5;
+			theQuad->throttle[i] += 0.2;
 			break;
 		}
 		case 'n':
 		{
 			for (int i = 0; i < 4; i++)
-			theQuad->throttle[i] = fmax(0.0, theQuad->throttle[i] - 0.5);
+			theQuad->throttle[i] = fmax(0.0, theQuad->throttle[i] - 0.2);
 			break;
 		}
 		case 't':
@@ -275,6 +167,11 @@ void Simulator::keyboardCallback(unsigned char key, int x, int y)
 			// 断电
 			for (int i = 0; i < 4; i++)
 				theQuad->throttle[i] = 0.0;
+			break;
+		}
+		case 'c':
+		{
+			theQuad->switchAutoPilot();
 			break;
 		}
 		case 'u':

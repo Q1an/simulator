@@ -7,14 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E406918419D929DF00582920 /* BulletCollision.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E406917E19D929DF00582920 /* BulletCollision.framework */; };
-		E406918519D929DF00582920 /* BulletDynamics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E406917F19D929DF00582920 /* BulletDynamics.framework */; };
-		E406918619D929DF00582920 /* BulletMultiThreaded.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E406918019D929DF00582920 /* BulletMultiThreaded.framework */; };
-		E406918719D929DF00582920 /* BulletSoftBody.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E406918119D929DF00582920 /* BulletSoftBody.framework */; };
-		E406918819D929DF00582920 /* BulletSoftBodySolvers_OpenCL_Mini.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E406918219D929DF00582920 /* BulletSoftBodySolvers_OpenCL_Mini.framework */; };
-		E406918919D929DF00582920 /* LinearMath.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E406918319D929DF00582920 /* LinearMath.framework */; };
-		E406918D19D92A4800582920 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E406918B19D92A4800582920 /* GLUT.framework */; };
-		E406918E19D92A4800582920 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E406918C19D92A4800582920 /* OpenGL.framework */; };
 		E40699E019D9476500582920 /* btAxisSweep3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E40697AE19D9476400582920 /* btAxisSweep3.cpp */; };
 		E40699E119D9476500582920 /* btBroadphaseProxy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E40697B119D9476400582920 /* btBroadphaseProxy.cpp */; };
 		E40699E219D9476500582920 /* btCollisionAlgorithm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E40697B319D9476400582920 /* btCollisionAlgorithm.cpp */; };
@@ -155,6 +147,16 @@
 		E4069A9419D9476500582920 /* btVector3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E40699AC19D9476500582920 /* btVector3.cpp */; };
 		E452C5FA19E411B4005A9350 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E452C5F719E411B4005A9350 /* main.cpp */; };
 		E452C5FB19E411B4005A9350 /* Simulator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E452C5F819E411B4005A9350 /* Simulator.cpp */; };
+		E459FB7B19E68CCA00CD0EA9 /* BulletDynamics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E459FB7619E68CCA00CD0EA9 /* BulletDynamics.framework */; };
+		E459FB7C19E68CCA00CD0EA9 /* BulletMultiThreaded.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E459FB7719E68CCA00CD0EA9 /* BulletMultiThreaded.framework */; };
+		E459FB7D19E68CCA00CD0EA9 /* BulletSoftBody.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E459FB7819E68CCA00CD0EA9 /* BulletSoftBody.framework */; };
+		E459FB7E19E68CCA00CD0EA9 /* BulletSoftBodySolvers_OpenCL_Mini.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E459FB7919E68CCA00CD0EA9 /* BulletSoftBodySolvers_OpenCL_Mini.framework */; };
+		E459FB7F19E68CCB00CD0EA9 /* LinearMath.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E459FB7A19E68CCA00CD0EA9 /* LinearMath.framework */; };
+		E459FB8119E68D1600CD0EA9 /* BulletCollision.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E459FB8019E68D1600CD0EA9 /* BulletCollision.framework */; };
+		E459FB8419E68E2B00CD0EA9 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E459FB8219E68E2B00CD0EA9 /* GLUT.framework */; };
+		E459FB8519E68E2B00CD0EA9 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E459FB8319E68E2B00CD0EA9 /* OpenGL.framework */; };
+		E459FB8919E69BB400CD0EA9 /* Quad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E459FB8819E69BB400CD0EA9 /* Quad.cpp */; };
+		E459FB8B19E69D6900CD0EA9 /* Control.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E459FB8A19E69D6900CD0EA9 /* Control.cpp */; };
 		E4C3B89119D9B13B00C3238B /* DemoApplication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4C3B87619D9B13B00C3238B /* DemoApplication.cpp */; };
 		E4C3B89219D9B13B00C3238B /* GL_DialogDynamicsWorld.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4C3B87819D9B13B00C3238B /* GL_DialogDynamicsWorld.cpp */; };
 		E4C3B89319D9B13B00C3238B /* GL_DialogWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4C3B87A19D9B13B00C3238B /* GL_DialogWindow.cpp */; };
@@ -184,14 +186,6 @@
 
 /* Begin PBXFileReference section */
 		E406917219D929C500582920 /* Simulator */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Simulator; sourceTree = BUILT_PRODUCTS_DIR; };
-		E406917E19D929DF00582920 /* BulletCollision.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BulletCollision.framework; path = /Library/Frameworks/BulletCollision.framework; sourceTree = "<absolute>"; };
-		E406917F19D929DF00582920 /* BulletDynamics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BulletDynamics.framework; path = /Library/Frameworks/BulletDynamics.framework; sourceTree = "<absolute>"; };
-		E406918019D929DF00582920 /* BulletMultiThreaded.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BulletMultiThreaded.framework; path = /Library/Frameworks/BulletMultiThreaded.framework; sourceTree = "<absolute>"; };
-		E406918119D929DF00582920 /* BulletSoftBody.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BulletSoftBody.framework; path = /Library/Frameworks/BulletSoftBody.framework; sourceTree = "<absolute>"; };
-		E406918219D929DF00582920 /* BulletSoftBodySolvers_OpenCL_Mini.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BulletSoftBodySolvers_OpenCL_Mini.framework; path = /Library/Frameworks/BulletSoftBodySolvers_OpenCL_Mini.framework; sourceTree = "<absolute>"; };
-		E406918319D929DF00582920 /* LinearMath.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LinearMath.framework; path = /Library/Frameworks/LinearMath.framework; sourceTree = "<absolute>"; };
-		E406918B19D92A4800582920 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
-		E406918C19D92A4800582920 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		E40697A919D9476400582920 /* btBulletCollisionCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btBulletCollisionCommon.h; sourceTree = "<group>"; };
 		E40697AA19D9476400582920 /* btBulletDynamicsCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btBulletDynamicsCommon.h; sourceTree = "<group>"; };
 		E40697AB19D9476400582920 /* Bullet-C-Api.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bullet-C-Api.h"; sourceTree = "<group>"; };
@@ -540,6 +534,18 @@
 		E452C5F719E411B4005A9350 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = Simulator/main.cpp; sourceTree = SOURCE_ROOT; };
 		E452C5F819E411B4005A9350 /* Simulator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Simulator.cpp; path = Simulator/Simulator.cpp; sourceTree = SOURCE_ROOT; };
 		E452C5F919E411B4005A9350 /* Simulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Simulator.h; path = Simulator/Simulator.h; sourceTree = SOURCE_ROOT; };
+		E459FB7619E68CCA00CD0EA9 /* BulletDynamics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BulletDynamics.framework; path = src/Frameworks/BulletDynamics.framework; sourceTree = SOURCE_ROOT; };
+		E459FB7719E68CCA00CD0EA9 /* BulletMultiThreaded.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BulletMultiThreaded.framework; path = src/Frameworks/BulletMultiThreaded.framework; sourceTree = SOURCE_ROOT; };
+		E459FB7819E68CCA00CD0EA9 /* BulletSoftBody.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BulletSoftBody.framework; path = src/Frameworks/BulletSoftBody.framework; sourceTree = SOURCE_ROOT; };
+		E459FB7919E68CCA00CD0EA9 /* BulletSoftBodySolvers_OpenCL_Mini.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BulletSoftBodySolvers_OpenCL_Mini.framework; path = src/Frameworks/BulletSoftBodySolvers_OpenCL_Mini.framework; sourceTree = SOURCE_ROOT; };
+		E459FB7A19E68CCA00CD0EA9 /* LinearMath.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LinearMath.framework; path = src/Frameworks/LinearMath.framework; sourceTree = SOURCE_ROOT; };
+		E459FB8019E68D1600CD0EA9 /* BulletCollision.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BulletCollision.framework; path = src/Frameworks/BulletCollision.framework; sourceTree = SOURCE_ROOT; };
+		E459FB8219E68E2B00CD0EA9 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = src/Frameworks/GLUT.framework; sourceTree = SOURCE_ROOT; };
+		E459FB8319E68E2B00CD0EA9 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = src/Frameworks/OpenGL.framework; sourceTree = SOURCE_ROOT; };
+		E459FB8619E6982E00CD0EA9 /* Control.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Control.h; path = Simulator/Control.h; sourceTree = SOURCE_ROOT; };
+		E459FB8719E69A5000CD0EA9 /* Quad.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Quad.h; path = Simulator/Quad.h; sourceTree = SOURCE_ROOT; };
+		E459FB8819E69BB400CD0EA9 /* Quad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Quad.cpp; path = Simulator/Quad.cpp; sourceTree = SOURCE_ROOT; };
+		E459FB8A19E69D6900CD0EA9 /* Control.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Control.cpp; path = Simulator/Control.cpp; sourceTree = SOURCE_ROOT; };
 		E4C3B87419D9B13B00C3238B /* CommandLineArguments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommandLineArguments.h; sourceTree = "<group>"; };
 		E4C3B87519D9B13B00C3238B /* DebugCastResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugCastResult.h; sourceTree = "<group>"; };
 		E4C3B87619D9B13B00C3238B /* DemoApplication.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DemoApplication.cpp; sourceTree = "<group>"; };
@@ -574,14 +580,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E406918D19D92A4800582920 /* GLUT.framework in Frameworks */,
-				E406918E19D92A4800582920 /* OpenGL.framework in Frameworks */,
-				E406918419D929DF00582920 /* BulletCollision.framework in Frameworks */,
-				E406918519D929DF00582920 /* BulletDynamics.framework in Frameworks */,
-				E406918619D929DF00582920 /* BulletMultiThreaded.framework in Frameworks */,
-				E406918719D929DF00582920 /* BulletSoftBody.framework in Frameworks */,
-				E406918819D929DF00582920 /* BulletSoftBodySolvers_OpenCL_Mini.framework in Frameworks */,
-				E406918919D929DF00582920 /* LinearMath.framework in Frameworks */,
+				E459FB7C19E68CCA00CD0EA9 /* BulletMultiThreaded.framework in Frameworks */,
+				E459FB8519E68E2B00CD0EA9 /* OpenGL.framework in Frameworks */,
+				E459FB8119E68D1600CD0EA9 /* BulletCollision.framework in Frameworks */,
+				E459FB7B19E68CCA00CD0EA9 /* BulletDynamics.framework in Frameworks */,
+				E459FB7D19E68CCA00CD0EA9 /* BulletSoftBody.framework in Frameworks */,
+				E459FB7E19E68CCA00CD0EA9 /* BulletSoftBodySolvers_OpenCL_Mini.framework in Frameworks */,
+				E459FB8419E68E2B00CD0EA9 /* GLUT.framework in Frameworks */,
+				E459FB7F19E68CCB00CD0EA9 /* LinearMath.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -610,8 +616,12 @@
 			isa = PBXGroup;
 			children = (
 				E452C5F719E411B4005A9350 /* main.cpp */,
-				E452C5F819E411B4005A9350 /* Simulator.cpp */,
 				E452C5F919E411B4005A9350 /* Simulator.h */,
+				E452C5F819E411B4005A9350 /* Simulator.cpp */,
+				E459FB8719E69A5000CD0EA9 /* Quad.h */,
+				E459FB8819E69BB400CD0EA9 /* Quad.cpp */,
+				E459FB8619E6982E00CD0EA9 /* Control.h */,
+				E459FB8A19E69D6900CD0EA9 /* Control.cpp */,
 			);
 			name = Simulator;
 			path = HelloWorld;
@@ -620,14 +630,14 @@
 		E406918A19D929FC00582920 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E406918B19D92A4800582920 /* GLUT.framework */,
-				E406918C19D92A4800582920 /* OpenGL.framework */,
-				E406917E19D929DF00582920 /* BulletCollision.framework */,
-				E406917F19D929DF00582920 /* BulletDynamics.framework */,
-				E406918019D929DF00582920 /* BulletMultiThreaded.framework */,
-				E406918119D929DF00582920 /* BulletSoftBody.framework */,
-				E406918219D929DF00582920 /* BulletSoftBodySolvers_OpenCL_Mini.framework */,
-				E406918319D929DF00582920 /* LinearMath.framework */,
+				E459FB8219E68E2B00CD0EA9 /* GLUT.framework */,
+				E459FB8319E68E2B00CD0EA9 /* OpenGL.framework */,
+				E459FB8019E68D1600CD0EA9 /* BulletCollision.framework */,
+				E459FB7619E68CCA00CD0EA9 /* BulletDynamics.framework */,
+				E459FB7719E68CCA00CD0EA9 /* BulletMultiThreaded.framework */,
+				E459FB7819E68CCA00CD0EA9 /* BulletSoftBody.framework */,
+				E459FB7919E68CCA00CD0EA9 /* BulletSoftBodySolvers_OpenCL_Mini.framework */,
+				E459FB7A19E68CCA00CD0EA9 /* LinearMath.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1231,6 +1241,7 @@
 				E4069A1A19D9476500582920 /* btScaledBvhTriangleMeshShape.cpp in Sources */,
 				E4069A9319D9476500582920 /* btSerializer.cpp in Sources */,
 				E4069A3119D9476500582920 /* gim_tri_collision.cpp in Sources */,
+				E459FB8B19E69D6900CD0EA9 /* Control.cpp in Sources */,
 				E40699E819D9476500582920 /* btQuantizedBvh.cpp in Sources */,
 				E40699EE19D9476500582920 /* btCollisionDispatcher.cpp in Sources */,
 				E4C3B89219D9B13B00C3238B /* GL_DialogDynamicsWorld.cpp in Sources */,
@@ -1260,6 +1271,7 @@
 				E40699E519D9476500582920 /* btDispatcher.cpp in Sources */,
 				E4C3B89919D9B13B00C3238B /* GlutStuff.cpp in Sources */,
 				E4069A1E19D9476500582920 /* btStridingMeshInterface.cpp in Sources */,
+				E459FB8919E69BB400CD0EA9 /* Quad.cpp in Sources */,
 				E4069A0419D9476500582920 /* btBoxShape.cpp in Sources */,
 				E4069A4719D9476500582920 /* btPoint2PointConstraint.cpp in Sources */,
 				E4069A2E19D9476500582920 /* gim_box_set.cpp in Sources */,
@@ -1425,6 +1437,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+					"$(PROJECT_DIR)/src/Frameworks",
 				);
 				PRODUCT_NAME = Simulator;
 			};
@@ -1436,6 +1449,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+					"$(PROJECT_DIR)/src/Frameworks",
 				);
 				PRODUCT_NAME = Simulator;
 			};
