@@ -13,9 +13,6 @@ class btDefaultCollisionConfiguration;
 
 class Simulator : public GlutDemoApplication
 {
-	
-	
-	
 	//keep the collision shapes, for deletion/cleanup
 	btAlignedObjectArray<btCollisionShape*>	m_collisionShapes;
 	
