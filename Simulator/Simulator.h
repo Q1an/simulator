@@ -26,6 +26,7 @@ class Simulator : public GlutDemoApplication
 	
 public:
 	btAlignedObjectArray<class Quad*> m_quads;
+	
 	void initPhysics();
 	
 	void exitPhysics();

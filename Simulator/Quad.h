@@ -8,10 +8,11 @@
 #define TORQUE_K 0.5
 #define MAX_THROTTLE 3.0
 #define MIN_THROTTLE 0.0
-#define MAX_THROTTLE_STEP 0.5
+#define MAX_THROTTLE_STEP 0.1
 #include "btBulletDynamicsCommon.h"
 #include "LinearMath/btIDebugDraw.h"
 #include "GlutStuff.h"
+float error(float range);
 class Quad
 {
 	btDynamicsWorld* m_ownerWorld;
@@ -51,9 +52,12 @@ public:
 	Quad (btDynamicsWorld* ownerWorld, const btVector3& positionOffset);
 	~Quad ();
 	void apply(void);
-	btVector4 throttle;
+	btScalar throttle;
+	btVector4 signal;
 	void (*control)(Quad *quad);
 	btVector3 getAcceleration();
+	void getRotation(btScalar &yaw, btScalar &pitch, btScalar &roll);
+	btScalar getHeight();
 	void drawForce();
 	void switchAutoPilot();
 };

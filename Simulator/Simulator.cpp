@@ -137,53 +137,36 @@ void Simulator::keyboardCallback(unsigned char key, int x, int y)
 	{
 		case 'p':
 		{
-			for (int i = 0; i < 4; i++)
-			theQuad->throttle[i] += 0.2;
+			theQuad->throttle += 0.2;
 			break;
 		}
 		case 'n':
 		{
-			for (int i = 0; i < 4; i++)
-			theQuad->throttle[i] = fmax(0.0, theQuad->throttle[i] - 0.2);
+			theQuad->throttle = fmax(0.0, theQuad->throttle - 0.2);
 			break;
 		}
 		case 't':
 		{
 			// 油门
-			for (int i = 0; i < 4; i++)
-				theQuad->throttle[i] = 2.0;
+			theQuad->throttle = 2.0;
 			break;
 		}
 		case 'y':
 		{
 			// 油门
-			for (int i = 0; i < 4; i++)
-				theQuad->throttle[i] = 1.25;
+			theQuad->throttle = 1.25;
 			break;
 		}
 
 		case 'b':
 		{
 			// 断电
-			for (int i = 0; i < 4; i++)
-				theQuad->throttle[i] = 0.0;
+			theQuad->throttle = 0.0;
 			break;
 		}
 		case 'c':
 		{
 			theQuad->switchAutoPilot();
-			break;
-		}
-		case 'u':
-		{
-			theQuad->throttle[1] += 0.3;
-			theQuad->throttle[3] -= 0.3;
-			break;
-		}
-		case 'i':
-		{
-			theQuad->throttle[1] -= 0.3;
-			theQuad->throttle[3] += 0.3;
 			break;
 		}
 		default:

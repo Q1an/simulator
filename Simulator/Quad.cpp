@@ -11,7 +11,7 @@ float slice(float x, float lower, float upper)
 	return fmin(fmax(x, lower), upper);
 }
 Quad::Quad (btDynamicsWorld* ownerWorld, const btVector3& positionOffset)
-:	m_ownerWorld (ownerWorld), throttle(btVector4(0.0, 0.0, 0.0, 0.0)),
+:	m_ownerWorld (ownerWorld), throttle(0.0), signal(btVector4(0.0, 0.0, 0.0, 0.0)),
 	actual(btVector4(0.0, 0.0, 0.0, 0.0)),
 	control(controlFunction)
 {
@@ -65,21 +65,37 @@ void Quad::apply(void)
 		{
 			control(this);
 		}
+		else
+		{
+			for (int i = 0; i < 4; i++)
+			{
+				signal[i] = throttle;
+			}
+		}
 		btTransform tran = btTransform(m_bodies[0]->getOrientation());
 		m_bodies[0]->activate();
 		for (int i = 0; i < 4; i++)
 		{
-			throttle[i] = slice(throttle[i], MIN_THROTTLE, MAX_THROTTLE);
-			actual[i] = slice(throttle[i], actual[i] - MAX_THROTTLE_STEP, actual[i] + MAX_THROTTLE_STEP);
-			m_bodies[0]->applyForce(tran*btVector3(0.0, actual[i] + error(0.1), 0.0), tran*rotor[i]);
+			signal[i] = slice(signal[i], MIN_THROTTLE, MAX_THROTTLE);
+			actual[i] = slice(signal[i], actual[i] - MAX_THROTTLE_STEP, actual[i] + MAX_THROTTLE_STEP);
+			m_bodies[0]->applyForce(tran*btVector3(0.0, actual[i] + error(0.3), 0.0), tran*rotor[i]);
 			m_bodies[0]->applyTorque(tran*btVector3(0.0, hand[i]*TORQUE_K * actual[i], 0.0));
 		}
 	force = m_bodies[0]->getTotalForce()-m_bodies[0]->getGravity()*MASS;
 }
 btVector3 Quad::getAcceleration()
 {
+	return force / MASS;
+}
+void Quad::getRotation(btScalar &yaw, btScalar &pitch, btScalar &roll)
+{
 	btTransform tran = btTransform(m_bodies[0]->getOrientation());
-	return tran * force / MASS;
+	return tran.getBasis().getEulerYPR(yaw, pitch, roll);
+}
+btScalar Quad::getHeight()
+{
+	btTransform tr = btTransform(m_bodies[0]->getWorldTransform());
+	return tr.getOrigin().getY();
 }
 void vertex(btVector3 &v)
 {
@@ -89,12 +105,13 @@ void Quad::drawForce()
 {
 	btTransform tr = btTransform(m_bodies[0]->getWorldTransform());
 	
+	glColor3f(255.f,0,0);
+	btVector3 acc = tr.getOrigin()+ 0.1*(getAcceleration());
 	glBegin(GL_LINES);
 	
-	// x
-	glColor3f(255.f,0,0);
-	btVector3 vX = tr.getOrigin()+ 0.1*(getAcceleration());
-	vertex(tr.getOrigin());	vertex(vX);	glEnd();
+	vertex(tr.getOrigin());
+	vertex(acc);
+	glEnd();
 	
 }
 void Quad::switchAutoPilot()
